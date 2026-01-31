@@ -1,0 +1,27 @@
+@dotnet_bdd_HostAddress = http://localhost:5124
+
+GET {{dotnet_bdd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{dotnet_bdd_HostAddress}}/logs/bulk
+Content-Type: application/json
+
+[
+  {
+    "migration_start_time": "2025-11-27T00:00:00Z",
+    "sub_job_id": "GD-20251127100219-5719716-185574",
+    "title": "[BELL] Chantiers Qualité Bassins",
+    "type": "Folder",
+    "source_ID": "0AAJvKO3KyRDrUk9PVA",
+    "source": "[BELL] Chantiers Qualité Bassins",
+    "destination_id": "a5ae42d0-9d8e-4736-b20a-7bd5ff1eff50",
+    "destination": "https://iutamiens.sharepoint.com/...",
+    "size": "0 Bytes",
+    "status": "Successful",
+    "migration_action": "Merge",
+    "comment": "",
+    "error_code": ""
+  }
+]
