@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotnet_bdd")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc9a2c260ca33cb7ce1183c58c419201c55162fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotnet_bdd")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotnet_bdd")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

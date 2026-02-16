@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/guerby/Cours/virtualisation/dotnet_bdd/dotnet_bdd.csproj": {}
+    "/home/guerby/Cours/automatisation_prod/dotnet_bdd/dotnet_bdd.csproj": {}
   },
   "projects": {
-    "/home/guerby/Cours/virtualisation/dotnet_bdd/dotnet_bdd.csproj": {
+    "/home/guerby/Cours/automatisation_prod/dotnet_bdd/dotnet_bdd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/guerby/Cours/virtualisation/dotnet_bdd/dotnet_bdd.csproj",
+        "projectUniqueName": "/home/guerby/Cours/automatisation_prod/dotnet_bdd/dotnet_bdd.csproj",
         "projectName": "dotnet_bdd",
-        "projectPath": "/home/guerby/Cours/virtualisation/dotnet_bdd/dotnet_bdd.csproj",
+        "projectPath": "/home/guerby/Cours/automatisation_prod/dotnet_bdd/dotnet_bdd.csproj",
         "packagesPath": "/home/guerby/.nuget/packages/",
-        "outputPath": "/home/guerby/Cours/virtualisation/dotnet_bdd/obj/",
+        "outputPath": "/home/guerby/Cours/automatisation_prod/dotnet_bdd/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/guerby/.nuget/NuGet/NuGet.Config"
@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[8.0.0, )"
             },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[10.1.0, )"
@@ -81,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.101/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

@@ -1,0 +1,183 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>logProcessing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+        th.sort-asc::after {
+            content: " ▲";
+        }
+        th.sort-desc::after {
+            content: " ▼";
+        }
+        #filterInput {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Log processing</h1>
+    </header>
+    <section style="display: flex; flex-direction: row">
+        <div style="display: flex; flex-direction: column">
+            <form action="/upload" method="post", enctype="multipart/form-data">
+                <input
+                    type="file"
+                    name="files"
+                    multiple
+                />
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <div>
+            <div>
+                <input
+                    type="text"
+                    id="filterInput"
+                    placeholder="Filter by title, source, or status..."
+                />
+                <table id="logTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Migration Start Time</th>
+                            <th onclick="sortTable(1)">Sub Job ID</th>
+                            <th onclick="sortTable(2)">Title</th>
+                            <th onclick="sortTable(3)">Type</th>
+                            <th onclick="sortTable(4)">Source ID</th>
+                            <th onclick="sortTable(5)">Source</th>
+                            <th onclick="sortTable(6)">Destination ID</th>
+                            <th onclick="sortTable(7)">Destination</th>
+                            <th onclick="sortTable(8)">Size</th>
+                            <th onclick="sortTable(9)">Status</th>
+                            <th onclick="sortTable(10)">Migration Action</th>
+                            <th onclick="sortTable(11)">Comment</th>
+                            <th onclick="sortTable(12)">Error Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.migrationStartTime }}</td>
+                            <td>{{ log.subJobId }}</td>
+                            <td>{{ log.title }}</td>
+                            <td>{{ log.type }}</td>
+                            <td>{{ log.sourceID }}</td>
+                            <td>{{ log.source }}</td>
+                            <td>{{ log.destinationId }}</td>
+                            <td>{{ log.destination }}</td>
+                            <td>{{ log.size }}</td>
+                            <td>{{ log.status }}</td>
+                            <td>{{ log.migrationAction }}</td>
+                            <td>{{ log.comment }}</td>
+                            <td>{{ log.errorCode }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    {% if page > 1 %}
+                        <a href="/?page={{ page - 1 }}&page_size={{ page_size }}">Previous</a>
+                    {% endif %}
+                    <span> Page {{ page }} of {{ total_pages }} </span>
+                    {% if page < total_pages %}
+                        <a href="/?page={{ page + 1 }}&page_size={{ page_size }}">Next</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000/upload";
+
+        function callApi() {
+            fetch(API_URL)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json;
+                    } else {
+                        throw new Error("API request failed");
+                    }
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
+        }
+
+        function sortTable(n) {
+            const table = document.getElementById("logTable");
+            let switching = true;
+            let dir = "asc";
+            let switchcount = 0;
+
+            while (switching) {
+                switching = false;
+                const rows = table.rows;
+                for (let i = 1; i < rows.length - 1; i++) {
+                    let shouldSwitch = false;
+                    const x = rows[i].getElementsByTagName("TD")[n];
+                    const y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir === "asc" && x.innerHTML > y.innerHTML) {
+                        shouldSwitch = true;
+                        break;
+                    } else if (dir === "desc" && x.innerHTML < y.innerHTML) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        document
+            .getElementById("filterInput")
+            .addEventListener("keyup", function () {
+                const filter = this.value.toLowerCase();
+                const rows = document.querySelectorAll("#logTable tbody tr");
+                rows.forEach((row) => {
+                    const cells = row.querySelectorAll("td");
+                    const match = Array.from(cells).some((cell) =>
+                        cell.innerText.toLowerCase().includes(filter),
+                    );
+                    row.style.display = match ? "" : "none";
+                });
+            });
+    </script>
+</body>
+<html />

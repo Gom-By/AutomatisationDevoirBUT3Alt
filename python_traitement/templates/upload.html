@@ -1,0 +1,61 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>logProcessing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+        th.sort-asc::after {
+            content: " ▲";
+        }
+        th.sort-desc::after {
+            content: " ▼";
+        }
+        #filterInput {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header style="display: flex; flex-direction: row">
+        <h1>Log upload diagnostic</h1>
+        <button><a href="/">Return</a></button>
+    </header>
+
+    <section style="display: flex; flex-direction: row">
+        <div>
+            <h2>Sent to the backend</h2>
+            <p>{{ uploaded_files }} files uploaded</p>
+            <p>{{ rows_received }} to process</p>
+            <p>{{ rows_valid }} valid rows among them</p>
+        </div>
+        <div>
+            <h2>Errors and downstream status</h2>
+            <p>Errors : {{ validation_errors }}</p>
+            <p>C# Status : {{ downstream_status }}</p>
+        </div>
+    </section>
+</body>
+<html />
