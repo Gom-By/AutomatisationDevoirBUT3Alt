@@ -140,3 +140,8 @@
 /home/guerby/Cours/automatisation_prod/dotnet_bdd/obj/Debug/net10.0/dotnet_bdd.pdb
 /home/guerby/Cours/automatisation_prod/dotnet_bdd/obj/Debug/net10.0/dotnet_bdd.genruntimeconfig.cache
 /home/guerby/Cours/automatisation_prod/dotnet_bdd/obj/Debug/net10.0/ref/dotnet_bdd.dll
+/home/guerby/Cours/automatisation_prod/dotnet_bdd/bin/Debug/net10.0/out/appsettings.Development.json
+/home/guerby/Cours/automatisation_prod/dotnet_bdd/bin/Debug/net10.0/out/appsettings.json
+/home/guerby/Cours/automatisation_prod/dotnet_bdd/bin/Debug/net10.0/out/dotnet_bdd.deps.json
+/home/guerby/Cours/automatisation_prod/dotnet_bdd/bin/Debug/net10.0/out/dotnet_bdd.runtimeconfig.json
+/home/guerby/Cours/automatisation_prod/dotnet_bdd/bin/Debug/net10.0/out/dotnet_bdd.staticwebassets.endpoints.json

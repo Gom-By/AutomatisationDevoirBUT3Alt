@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using MongoDB.Driver;
 using MongoDB.Bson;
@@ -8,20 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Ensure JSON binding is case-insensitive and accepts snake_case from Python
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.PropertyNameCaseInsensitive = true;
-    // Allow incoming snake_case to bind to PascalCase C# properties by using a custom converter during model binding:
     options.SerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
 });
 
 // DB configuration
-builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient("mongodb://localhost:27017"));
+var client = new MongoClient("mongodb://logs-mongo:27017");
+builder.Services.AddSingleton<IMongoClient>(_ => client);
 
-builder.Services.AddSingleton(sp =>
+builder.Services.AddSingleton<IMongoDatabase>(sp =>
 {
-    var client = sp.GetRequiredService<IMongoClient>();
     return client.GetDatabase("logsdb");
 });
 
@@ -37,8 +34,7 @@ app.MapLogsRoutes();
 
 app.Run();
 
-// ---- Models & DbContext ----
-
+// ---- Models ----
 public class LogItem
 {
     [BsonId]

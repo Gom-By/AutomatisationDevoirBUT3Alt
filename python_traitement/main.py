@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, ValidationError
 from starlette.templating import _TemplateResponse
 
-DOWNSTREAM_URL = "http://localhost:5124/logs/bulk"
+DOWNSTREAM_URL = "http://dotnet-backend:5124/logs/bulk"
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -55,7 +55,7 @@ COLUMN_MAP = {
 @cached(cache)
 def fetch_logs():
     with httpx.Client(timeout=30.0) as client:
-        resp = client.get("http://localhost:5124/logs")
+        resp = client.get("http://dotnet-backend:5124/logs")
         resp.raise_for_status()
         return resp.json()
 

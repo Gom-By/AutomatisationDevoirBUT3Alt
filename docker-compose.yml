@@ -4,10 +4,49 @@ services:
     container_name: logs-mongo
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "27017"
     volumes:
       - mongo_data:/data/db
     environment:
       MONGO_INITDB_DATABASE: logsdb
+    networks:
+      - dbnet
+    command: ["mongod", "--bind_ip_all"]
+
+  dotnet:
+    build:
+      context: ./dotnet_bdd
+    container_name: dotnet-backend
+    restart: unless-stopped
+    ports:
+      - "5124"
+    depends_on:
+      - mongo
+    volumes:
+      - ./dotnet_bdd:/app
+    networks:
+      - dbnet
+      - apinet
+
+  python:
+    build:
+      context: ./python_traitement
+    container_name: python-frontend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - dotnet
+    volumes:
+      - ./python_traitement:/app
+    networks:
+      - apinet
+
 volumes:
   mongo_data:
+
+networks:
+  dbnet:
+    driver: bridge
+  apinet:
+    driver: bridge
